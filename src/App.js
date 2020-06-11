@@ -18,9 +18,14 @@ function App() {
     }
   ];
 
+  console.log(todoList);
+
   return (
     <div>
       <h1>TODO APP</h1>
+      {todoList.map(todoList => (
+        <li key={todoList.id}>{todoList.title}</li>
+      ))}
     </div>
   );
 }
