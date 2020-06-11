@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-function App() {
+const App = () => {
   const todoList = [
     {
       id: 1,
@@ -28,6 +28,6 @@ function App() {
       ))}
     </div>
   );
-}
+};
 
 export default App;
