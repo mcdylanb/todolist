@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+const Todo = ({ title, id }) => {
+  return <li>{title}</li>;
+};
+
 const App = () => {
   const todoList = [
     {
@@ -18,13 +22,11 @@ const App = () => {
     }
   ];
 
-  console.log(todoList);
-
   return (
     <div>
       <h1>TODO APP</h1>
       {todoList.map(todoList => (
-        <li key={todoList.id}>{todoList.title}</li>
+        <Todo key={todoList.id} title={todoList.title} />
       ))}
     </div>
   );
