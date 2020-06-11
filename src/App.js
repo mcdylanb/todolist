@@ -7,7 +7,7 @@ const Todo = ({ title, id }) => {
 };
 
 const App = () => {
-  const todoList = [
+  const [todoList, setTodoList] = useState([
     {
       id: 1,
       title: "clean the dishes"
@@ -20,7 +20,24 @@ const App = () => {
       id: 3,
       title: "learn react"
     }
-  ];
+  ]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const addTodo = event => {
+    event.preventDefault();
+    const todoListObject = {
+      title: newTodo,
+      id: todoList.length + 1
+    };
+    setTodoList(todoList.concat(todoListObject));
+    console.log(todoListObject);
+    setNewTodo("");
+  };
+
+  const handleChangeTitle = event => {
+    console.log(event.target.value);
+    setNewTodo(event.target.value);
+  };
 
   return (
     <div>
@@ -28,6 +45,16 @@ const App = () => {
       {todoList.map(todoList => (
         <Todo key={todoList.id} title={todoList.title} />
       ))}
+      <div>
+        <form onSubmit={addTodo}>
+          <div>
+            <input value={newTodo} onChange={handleChangeTitle} />
+            <div>
+              <button type="submit">+</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
