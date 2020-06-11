@@ -35,16 +35,19 @@ const App = () => {
   };
 
   const handleChangeTitle = event => {
-    console.log(event.target.value);
     setNewTodo(event.target.value);
   };
 
   return (
-    <div>
-      <h1>TODO APP</h1>
-      {todoList.map(todoList => (
-        <Todo key={todoList.id} title={todoList.title} />
-      ))}
+    <div className="App">
+      <h1 className="App-header">TODO APP</h1>
+      <div className="todo">
+        <ul>
+          {todoList.map(todoList => (
+            <Todo key={todoList.id} title={todoList.title} />
+          ))}
+        </ul>
+      </div>
       <div>
         <form onSubmit={addTodo}>
           <div>
