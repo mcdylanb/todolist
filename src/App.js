@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-const Todo = ({ todo, index }) => {
-  return <div className="todo">{todo.title}</div>;
+const Todo = ({ todo, index, removeTodo, completeTodo }) => {
+  return (
+    <div
+      className="todo"
+      style={{ textDecoration: todo.isComplete ? "line-through" : "" }}
+    >
+      {todo.title}
+      <div>
+        <button onClick={() => completeTodo(index)}>o</button>
+        <button onClick={() => removeTodo(index)}>x</button>
+      </div>
+    </div>
+  );
 };
 
 const TodoForm = ({ addTodo }) => {
@@ -15,6 +26,7 @@ const TodoForm = ({ addTodo }) => {
     addTodo(value);
     setValue("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -43,8 +55,22 @@ const App = () => {
     }
   ]);
 
-  const addTodo = text => {
-    const newTodos = [...todoList, { text }];
+  const addTodo = title => {
+    const newTodos = [...todoList, { title }];
+    console.log({ title });
+    console.log({ newTodos });
+    setTodoList(newTodos);
+  };
+
+  const completeTodo = index => {
+    const newTodos = [...todoList];
+    newTodos[index].isComplete = true;
+    setTodoList(newTodos);
+  };
+
+  const removeTodo = index => {
+    const newTodos = [...todoList];
+    newTodos.splice(index, 1);
     setTodoList(newTodos);
   };
 
@@ -52,7 +78,13 @@ const App = () => {
     <div className="App">
       <div className="todo">
         {todoList.map((todoList, index) => (
-          <Todo key={index} index={index} todo={todoList} />
+          <Todo
+            key={index}
+            index={index}
+            todo={todoList}
+            completeTodo={completeTodo}
+            removeTodo={removeTodo}
+          />
         ))}
         <TodoForm addTodo={addTodo} />
       </div>
