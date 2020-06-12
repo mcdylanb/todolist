@@ -6,6 +6,27 @@ const Todo = ({ todo, index }) => {
   return <div className="todo">{todo.title}</div>;
 };
 
+const TodoForm = ({ addTodo }) => {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+    addTodo(value);
+    setValue("");
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="input"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+    </form>
+  );
+};
+
 const App = () => {
   const [todoList, setTodoList] = useState([
     {
@@ -22,42 +43,21 @@ const App = () => {
     }
   ]);
 
-  const [newTodo, setNewTodo] = useState("");
-
-  const addTodo = event => {
-    event.preventDefault();
-    const todoListObject = {
-      title: newTodo,
-      id: todoList.length + 1
-    };
-    setTodoList(todoList.concat(todoListObject));
-    console.log(todoListObject);
-    setNewTodo("");
+  const addTodo = text => {
+    const newTodos = [...todoList, { text }];
+    setTodoList(newTodos);
   };
 
-  const handleChangeTitle = event => {
-    setNewTodo(event.target.value);
-  };
-
-  console.log(todoList[1].title);
   return (
     <div className="App">
       <div className="todo">
         {todoList.map((todoList, index) => (
           <Todo key={index} index={index} todo={todoList} />
         ))}
+        <TodoForm addTodo={addTodo} />
       </div>
 
-      <div>
-        <form onSubmit={addTodo}>
-          <div>
-            <input value={newTodo} onChange={handleChangeTitle} />
-            <div>
-              <button type="submit">+</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <div></div>
     </div>
   );
 };
