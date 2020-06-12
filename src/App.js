@@ -2,25 +2,26 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-const Todo = ({ title, id }) => {
-  return <li>{title}</li>;
+const Todo = ({ todo, index }) => {
+  return <div className="todo">{todo.title}</div>;
 };
 
 const App = () => {
   const [todoList, setTodoList] = useState([
     {
-      id: 1,
-      title: "clean the dishes"
+      title: "clean the dishes",
+      isComplete: false
     },
     {
-      id: 2,
-      title: "clean the room"
+      title: "clean the room",
+      isComplete: false
     },
     {
-      id: 3,
-      title: "learn react"
+      title: "learn react",
+      isComplete: false
     }
   ]);
+
   const [newTodo, setNewTodo] = useState("");
 
   const addTodo = event => {
@@ -38,16 +39,15 @@ const App = () => {
     setNewTodo(event.target.value);
   };
 
+  console.log(todoList[1].title);
   return (
     <div className="App">
-      <h1 className="App-header">TODO APP</h1>
       <div className="todo">
-        <ul>
-          {todoList.map(todoList => (
-            <Todo key={todoList.id} title={todoList.title} />
-          ))}
-        </ul>
+        {todoList.map((todoList, index) => (
+          <Todo key={index} index={index} todo={todoList} />
+        ))}
       </div>
+
       <div>
         <form onSubmit={addTodo}>
           <div>
