@@ -8,12 +8,12 @@ const Todo = ({ todo, index, removeTodo, completeTodo }) => {
       style={{ textDecoration: todo.isComplete ? "line-through" : "" }}
     >
       <div className="todoBar">
-        <button onClick={() => removeTodo(index)} className="delete">
-          Delete
-        </button>
-        <div className="text">{todo.title}</div>
         <button onClick={() => completeTodo(index)} className="done">
           Done
+        </button>
+        <div className="text">{todo.title}</div>
+        <button onClick={() => removeTodo(index)} className="delete">
+          Delete
         </button>
       </div>
     </div>
