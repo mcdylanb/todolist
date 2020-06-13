@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 const Todo = ({ todo, index, removeTodo, completeTodo }) => {
@@ -8,10 +7,14 @@ const Todo = ({ todo, index, removeTodo, completeTodo }) => {
       className="todo"
       style={{ textDecoration: todo.isComplete ? "line-through" : "" }}
     >
-      {todo.title}
-      <div>
-        <button onClick={() => completeTodo(index)}>o</button>
-        <button onClick={() => removeTodo(index)}>x</button>
+      <div className="todoBar">
+        <button onClick={() => removeTodo(index)} className="delete">
+          Delete
+        </button>
+        <div className="text">{todo.title}</div>
+        <button onClick={() => completeTodo(index)} className="done">
+          Done
+        </button>
       </div>
     </div>
   );
@@ -33,6 +36,7 @@ const TodoForm = ({ addTodo }) => {
         type="text"
         className="input"
         value={value}
+        placeholder="Add a ToDo"
         onChange={e => setValue(e.target.value)}
       />
     </form>
